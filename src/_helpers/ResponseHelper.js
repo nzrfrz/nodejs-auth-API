@@ -7,6 +7,7 @@ export const message = {
 
     emailAvailable: "Email available",
     emailNotAvailable: "Email not available",
+    emailInvalid: "Not a valid email !!!",
     errorEmailExist: "Email already associated with this account",
 
     errorPasswordNotFound: "Wrong password",

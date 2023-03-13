@@ -17,8 +17,8 @@ const router = express.Router();
 export const Authentication = (app) => {
     const userLogin = router.post("/user/login/", Login);
     const userRegistration = router.post("/user/registration/", Registration);
-    const userNameChecker = router.get("/user/check/userName=:userName/", CheckUserName);
-    const userEmailChecker = router.get("/user/check/userEmail=:email/", CheckUserEmail);
+    const userNameChecker = router.post("/user/check-userName/", CheckUserName);
+    const userEmailChecker = router.post("/user/check-userEmail/", CheckUserEmail);
     const userPasswordchecker = router.post("/user/check-password/", CheckUserPassword);
     const userChangePassword = router.put("/user/change-password/", ChangePassword);
 
