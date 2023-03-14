@@ -40,7 +40,7 @@ export const Login = async (req, res) => {
         regency: "",
         subDistrict: "",
         village: "",
-        profilePic: "",
+        profilePic: "http://drive.google.com/uc?export=view&id=1DCruElbQ1qv6eqtLqyNL_rzrZ7egs-o2",
         phoneNumber: "",
         browser: req.headers.browser,
         version: req.headers.version,
