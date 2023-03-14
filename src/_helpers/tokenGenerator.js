@@ -10,7 +10,7 @@ export const refreshTokenGenerator = (dataToSign) => {
 };
 
 export const accessTokenGenerator = (dataToSign) => {
-    const refreshToken = jwt.sign(dataToSign, process.env.ACCESS_TOKEN_SECRET, { algorithm: "HS512", expiresIn: "1d" });  
+    const refreshToken = jwt.sign(dataToSign, process.env.ACCESS_TOKEN_SECRET, { algorithm: "HS512", expiresIn: "2h" });  
 
     return refreshToken;
 };
