@@ -1,5 +1,6 @@
 import express from "express";
 import { Login } from "../controllers/login.controller.js";
+import { LoginV2 } from "../controllers/loginV2.controller.js";
 import { Logout } from "../controllers/logout.controller.js";
 import { Registration } from "../controllers/registration.controller.js";
 import { CheckUserName } from "../controllers/checkUserName.controller.js";
@@ -8,9 +9,12 @@ import { CheckUserPassword } from "../controllers/checkUserPassword.controller.j
 import { ChangePassword } from "../controllers/changePassword.controller.js";
 
 import { GetUserProfile } from "../controllers/userProfile.controller.js";
-import { RefreshTokenChecker } from "../controllers/tokenChecker.controller.js";
-import { AccessTokenChecker } from "../controllers/tokenChecker.controller.js";
-import { AccessTokenGenerator } from "../controllers/tokenChecker.controller.js";
+import { 
+    RefreshTokenChecker, 
+    AccessTokenChecker, 
+    AccessTokenGenerator, 
+    AccessTokenGeneratorV2 
+} from "../controllers/tokenChecker.controller.js";
 
 import { Playground } from "../controllers/playgound.controller.js";
 
@@ -18,6 +22,7 @@ const router = express.Router();
 
 export const Authentication = (app) => {
     const userLogin = router.post("/user/login/", Login);
+    const userLoginV2 = router.post("/v2/user/login/", LoginV2);
     const userLogout = router.get("/user/logout/", Logout);
     const userRegistration = router.post("/user/registration/", Registration);
     const userNameChecker = router.post("/user/check-userName/", CheckUserName);
@@ -29,11 +34,13 @@ export const Authentication = (app) => {
     const checkRefreshToken = router.get("/token/refresh/", RefreshTokenChecker);
     const checkAccessToken = router.get("/token/access/", AccessTokenChecker);
     const generateAcessToken = router.get("/access-token/generate/", AccessTokenGenerator);
+    const generateAcessTokenV2 = router.get("/v2/access-token/generate/", AccessTokenGeneratorV2);
 
     // const playground = router.get("/playground/?page=:page&per_page=:dataLength&q=:q", Playground);
     const playground = router.get("/playground/", Playground);
 
     app.use("/auth", userLogin);
+    app.use("/auth", userLoginV2);
     app.use("/auth", userLogout);
     app.use("/auth", userRegistration);
     app.use("/auth", userNameChecker);
@@ -47,4 +54,5 @@ export const Authentication = (app) => {
     app.use("/auth", checkRefreshToken);
     app.use("/auth", checkAccessToken);
     app.use("/auth", generateAcessToken);
+    app.use("/auth", generateAcessTokenV2);
 };

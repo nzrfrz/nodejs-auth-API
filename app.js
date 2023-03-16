@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import useragent from "express-useragent";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import DB from "./db.config.js";
 
@@ -10,6 +11,8 @@ dotenv.config();
 const app = express();
 
 let corsOptions = {
+    origin: "*",
+    credentials: true,
     optionsSuccessStatus: 200,
 };
 
@@ -17,6 +20,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 DB.mongoose
     .connect(DB.url, {

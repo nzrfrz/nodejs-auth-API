@@ -15,13 +15,11 @@ import DB from "../../db.config.js";
 dotenv.config();
 const USER_CREDENTIALS = DB.user_credentials;
 
-export const Login = async (req, res) => {
+export const LoginV2 = async (req, res) => {
     const { user, password } = req.body;
 
     const checkExistingUsername = await authManager.checkUserName(user);
     const checkExistingEmail = await authManager.checkUserEmail(user);
-
-    // console.log(passwordChecker(password, checkExistingUsername[0]?.password));
     
     const dataToSign = {
         id: checkExistingUsername[0]?.id || checkExistingEmail[0]?.id,
@@ -34,20 +32,20 @@ export const Login = async (req, res) => {
     // console.log(refreshToken);
 
     const payload = {
-        fullName: "",
-        address: "",
-        country: "",
-        province: "",
-        regency: "",
-        subDistrict: "",
-        village: "",
+        fullName: null,
+        address: null,
+        country: null,
+        province: null,
+        regency: null,
+        subDistrict: null,
+        village: null,
         profilePic: "http://drive.google.com/uc?export=view&id=1DCruElbQ1qv6eqtLqyNL_rzrZ7egs-o2",
-        phoneNumber: "",
+        phoneNumber: null,
         browser: req.headers.browser,
         version: req.headers.version,
         os: req.headers.os,
         platform: req.headers.platform,
-        userRole: "",
+        userRole: null,
         refreshToken,
         accessToken
     };
@@ -55,14 +53,22 @@ export const Login = async (req, res) => {
     switch (true) {
         case checkExistingUsername[0]?.userName !== undefined && passwordChecker(password, checkExistingUsername[0]?.password):
             USER_CREDENTIALS.findOneAndUpdate({ _id: checkExistingUsername[0].id }, payload, {new: true}, (error, results) => {
-                if (results) return responseHelper(res, status.success, message.loginSuccess, { refreshToken, accessToken });
-                return responseHelper(res, status.errorServer, message.errorServer, error);
+                if (results) {
+                    responseHelper(res, status.success, message.loginSuccess, { accessToken, refreshToken });
+                }
+                else {
+                    responseHelper(res, status.errorServer, message.errorServer, error);
+                }
             });
             break;
         case checkExistingEmail[0]?.email !== undefined && passwordChecker(password, checkExistingEmail[0]?.password):
             USER_CREDENTIALS.findOneAndUpdate({ _id: checkExistingEmail[0].id }, payload, {new: true}, (error, results) => {
-                if (results) return responseHelper(res, status.success, message.loginSuccess, { refreshToken, accessToken });
-                return responseHelper(res, status.errorServer, message.errorServer, error);
+                if (results) {
+                    responseHelper(res, status.success, message.loginSuccess, { accessToken, refreshToken });
+                }
+                else {
+                    responseHelper(res, status.errorServer, message.errorServer, error);
+                }
             });
             break;
         case checkExistingUsername[0]?.userName === undefined && passwordChecker(password, checkExistingUsername[0]?.password || ""):
