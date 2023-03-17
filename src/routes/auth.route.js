@@ -2,6 +2,7 @@ import express from "express";
 import { Login } from "../controllers/login.controller.js";
 import { LoginV2 } from "../controllers/loginV2.controller.js";
 import { Logout } from "../controllers/logout.controller.js";
+import { LogoutV2 } from "../controllers/logoutV2.controller.js";
 import { Registration } from "../controllers/registration.controller.js";
 import { CheckUserName } from "../controllers/checkUserName.controller.js";
 import { CheckUserEmail } from "../controllers/checkUserEmail.controller.js";
@@ -24,6 +25,7 @@ export const Authentication = (app) => {
     const userLogin = router.post("/user/login/", Login);
     const userLoginV2 = router.post("/v2/user/login/", LoginV2);
     const userLogout = router.get("/user/logout/", Logout);
+    const userLogoutV2 = router.get("/v2/user/logout/", LogoutV2);
     const userRegistration = router.post("/user/registration/", Registration);
     const userNameChecker = router.post("/user/check-userName/", CheckUserName);
     const userEmailChecker = router.post("/user/check-userEmail/", CheckUserEmail);
@@ -42,6 +44,7 @@ export const Authentication = (app) => {
     app.use("/auth", userLogin);
     app.use("/auth", userLoginV2);
     app.use("/auth", userLogout);
+    app.use("/auth", userLogoutV2);
     app.use("/auth", userRegistration);
     app.use("/auth", userNameChecker);
     app.use("/auth", userEmailChecker);
