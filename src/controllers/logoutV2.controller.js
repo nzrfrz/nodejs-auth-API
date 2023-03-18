@@ -13,9 +13,10 @@ dotenv.config();
 const USER_CREDENTIALS = DB.user_credentials;
 
 export const LogoutV2 = (req, res) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (token === undefined) return responseHelper(res, status.errorToken, message.tokenNotFound);
+    // console.log(JSON.parse(req.headers.cookies).refreshToken);
+    // const authHeader = req.headers["authorization"];
+    // const token = authHeader && authHeader.split(" ")[1];
+    // if (token === undefined) return responseHelper(res, status.errorToken, message.tokenNotFound);
 
     const payload = {
         browser: "",
@@ -27,8 +28,8 @@ export const LogoutV2 = (req, res) => {
         accessToken: ""
     };
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, tokenResults) => {
-        // console.log(tokenResults);
+    // responseHelper(res, 200, "Connected", {});
+    jwt.verify(JSON.parse(req?.headers?.cookies)?.refreshToken, process.env.REFRESH_TOKEN_SECRET, async (error, tokenResults) => {
         if (tokenResults === undefined) {
             responseHelper(res, status.errorToken, "Refresh token invalid, Please Login again !!");
         }
@@ -37,7 +38,6 @@ export const LogoutV2 = (req, res) => {
                 if (results) return responseHelper(res, status.success, "Logged Out", {userStatus: "Unauthorized"});
                 return responseHelper(res, status.errorServer, message.errorServer, error);
             });
-            // responseHelper(res, status.success, message.tokenValid);
         }
     });
 }
