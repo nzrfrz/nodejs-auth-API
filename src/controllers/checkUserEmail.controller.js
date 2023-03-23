@@ -20,7 +20,7 @@ export const CheckUserEmail = async (req, res) => {
             responseHelper(res, status.validIfNotExist, message.emailAvailable);
             break;    
         default:
-            responseHelper(res, status.notValidIfExist, message.errorEmailExist);
+            responseHelper(res, status.errorRefreshToken, message.errorEmailExist);
             break;
     }
 };

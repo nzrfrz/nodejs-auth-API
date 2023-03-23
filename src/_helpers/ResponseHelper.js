@@ -1,3 +1,10 @@
+/*
+Response Status List
+- No access token in headers authorization  = 400 Bad Request
+- Access token invalid                      = 401 Unauthorized
+- Refresh token invalid                     = 403 Forbidden
+*/
+
 export const message = {
     errorServer: "Something went wrong, please try again later !!",
 
@@ -17,23 +24,24 @@ export const message = {
     registrationSuccess: "Registration successfully !!!",
     loginSuccess: "Login Succesfully !!!",
 
-    tokenNotFound: "Please include your token",
+    tokenNotFound: "Access token required !!!",
     tokenValid: "Token valid",
 
-    errorVerifyToken: "Something wrong when verifying token, please try again later !!!",
+    // errorAccessToken: "Something wrong when verifying token, please try again later !!!",
     errorGeneratingToken: "Something wrong when generating token, please try again later !!!",
-    errorVerifyToken: "Token invalid, please request again !!!",
+    errorAccessToken: "Access token invalid, please request again !!!",
+    errorRefreshToken: "Refrfesh token invalid, please \'Login\' again !!!",
     errorGeneratingToken: "Something wrong when generating token, please try again later !!!",
 };
 
 export const status = {
     success: 200,
     successCreateNewData: 201,
-    notValidIfExist: 403,
+    errorRefreshToken: 403,
     validIfNotExist: 202,
     errorServer: 500, //data not saved in DB, or other server error
     errorRequest: 400,
-    errorToken: 401, // check if user not passing the token
+    errorAccessToken: 401, // check if user not passing the token
     notFound: 404,
 };
 

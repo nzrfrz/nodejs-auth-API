@@ -18,14 +18,14 @@ const USER_CREDENTIALS = DB.user_credentials;
 export const ChangePassword = async (req, res) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    if (token === undefined) return responseHelper(res, status.errorToken, message.tokenNotFound);
+    if (token === undefined) return responseHelper(res, status.errorRequest, message.tokenNotFound);
 
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, tokenResults) => {
         if (tokenResults === undefined) {
-            responseHelper(res, status.errorToken, "Refresh token invalid, Please Login again !!");
+            responseHelper(res, status.errorAccessToken, message.errorAccessToken);
         }
         else {
             const checkUser = await authManager.checkUserByID(tokenResults.id);

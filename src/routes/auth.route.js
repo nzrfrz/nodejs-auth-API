@@ -1,8 +1,10 @@
 import express from "express";
 import { Login } from "../controllers/login.controller.js";
 import { LoginV2 } from "../controllers/loginV2.controller.js";
+
 import { Logout } from "../controllers/logout.controller.js";
 import { LogoutV2 } from "../controllers/logoutV2.controller.js";
+
 import { Registration } from "../controllers/registration.controller.js";
 import { CheckUserName } from "../controllers/checkUserName.controller.js";
 import { CheckUserEmail } from "../controllers/checkUserEmail.controller.js";
@@ -24,8 +26,10 @@ const router = express.Router();
 export const Authentication = (app) => {
     const userLogin = router.post("/user/login/", Login);
     const userLoginV2 = router.post("/v2/user/login/", LoginV2);
-    const userLogout = router.get("/user/logout/", Logout);
-    const userLogoutV2 = router.post("/v2/user/logout/", LogoutV2);
+
+    const userLogout = router.post("/user/logout/", Logout);
+    const userLogoutV2 = router.get("/v2/user/logout/", LogoutV2);
+
     const userRegistration = router.post("/user/registration/", Registration);
     const userNameChecker = router.post("/user/check-userName/", CheckUserName);
     const userEmailChecker = router.post("/user/check-userEmail/", CheckUserEmail);
@@ -35,7 +39,7 @@ export const Authentication = (app) => {
     const getUser = router.get("/user/profile/", GetUserProfile);
     const checkRefreshToken = router.get("/token/refresh/", RefreshTokenChecker);
     const checkAccessToken = router.get("/token/access/", AccessTokenChecker);
-    const generateAcessToken = router.get("/access-token/generate/", AccessTokenGenerator);
+    const generateAcessToken = router.post("/access-token/generate/", AccessTokenGenerator);
     const generateAcessTokenV2 = router.get("/v2/access-token/generate/", AccessTokenGeneratorV2);
 
     // const playground = router.get("/playground/?page=:page&per_page=:dataLength&q=:q", Playground);

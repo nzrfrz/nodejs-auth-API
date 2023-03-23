@@ -14,11 +14,12 @@ dotenv.config();
 export const CheckUserPassword = async (req, res) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    if (token === undefined) return responseHelper(res, status.errorToken, message.tokenNotFound);
+    if (token === undefined) return responseHelper(res, status.errorAccessToken, message.tokenNotFound);
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, tokenResults) => {
+        console.log(tokenResults);
         if (tokenResults === undefined) {
-            responseHelper(res, status.errorToken, "Refresh token invalid, Please Login again !!");
+            responseHelper(res, status.errorAccessToken, message.errorAccessToken);
         }
         else {
             const checkUser = await authManager.checkUserByID(tokenResults.id);
