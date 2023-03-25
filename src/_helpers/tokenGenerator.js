@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 
 export const refreshTokenGenerator = (dataToSign) => {
-    const refreshToken = jwt.sign(dataToSign, process.env.REFRESH_TOKEN_SECRET, { algorithm: "HS512", expiresIn: "8h" });  
+    const refreshToken = jwt.sign(dataToSign, process.env.REFRESH_TOKEN_SECRET, { algorithm: "HS512", expiresIn: "1d" });  
 
     return refreshToken;
 };

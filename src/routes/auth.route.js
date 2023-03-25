@@ -28,7 +28,7 @@ export const Authentication = (app) => {
     const userLoginV2 = router.post("/v2/user/login/", LoginV2);
 
     const userLogout = router.post("/user/logout/", Logout);
-    const userLogoutV2 = router.get("/v2/user/logout/", LogoutV2);
+    const userLogoutV2 = router.post("/v2/user/logout/", LogoutV2);
 
     const userRegistration = router.post("/user/registration/", Registration);
     const userNameChecker = router.post("/user/check-userName/", CheckUserName);
