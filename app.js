@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 let corsOptions = {
-    origin: "*",
+    origin: true,
     credentials: true,
     optionsSuccessStatus: 200,
 };
